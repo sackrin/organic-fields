@@ -1,0 +1,26 @@
+{
+  "name": "@sackrin/organic-field",
+  "version": "0.0.1",
+  "description": "Provides the base field component to create organic fields",
+  "author": "Hilary <h.t.osborne@gmail.com>",
+  "homepage": "https://github.com/sackrin/organic-fields#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "src/__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sackrin/organic-fields.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/sackrin/organic-fields/issues"
+  }
+}
