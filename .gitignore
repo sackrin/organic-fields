@@ -1,5 +1,3 @@
 .idea
-
 *.tsbuildinfo
-
 node_modules
