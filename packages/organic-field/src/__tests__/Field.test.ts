@@ -9,6 +9,8 @@ describe('Organic/Field', () => {
     expect(exampleField.value()).to.be.undefined;
   });
 
+  // FIELD VALUES
+
   it('can provide a simple method for getting and setting the value', () => {
     const exampleField = Field<void | string>('exampleField', 'STRING');
     exampleField.value('John');
@@ -27,5 +29,30 @@ describe('Organic/Field', () => {
     exampleField.value('John');
     exampleField.value(undefined);
     expect(exampleField.value()).to.be.undefined;
+  });
+
+  // FIELD ATTRIBUTES
+
+  it('can set a field attribute', () => {
+    const exampleField = Field<void | string>('exampleField', 'STRING');
+    exampleField.attribute<{ type: string }>('dog', { type: 'beagle' });
+    expect(exampleField.attribute('dog')).to.deep.equal({ type: 'beagle' });
+  });
+
+  it('can update a field attribute', () => {
+    const exampleField = Field<void | string>('exampleField', 'STRING');
+    exampleField.attribute<{ type: string }>('dog', { type: 'beagle' });
+    exampleField.attribute<{ type: string }>('dog', { type: 'poodle' });
+    expect(exampleField.attribute('dog')).to.deep.equal({ type: 'poodle' });
+  });
+
+  it('can return a number of set field attributes', () => {
+    const exampleField = Field<void | string>('exampleField', 'STRING');
+    exampleField.attribute<{ type: string }>('dog', { type: 'beagle' });
+    exampleField.attribute<{ type: string }>('cat', { type: 'tabby' });
+    expect(exampleField.attributes).to.deep.equal({
+      dog: { type: 'beagle' },
+      cat: { type: 'tabby' },
+    });
   });
 });
