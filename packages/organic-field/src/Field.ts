@@ -1,3 +1,6 @@
+import Children from "./Children";
+import NOTHING from "./Consts/NOTHING";
+
 type OrganicField<V> = {
   machine: string;
   context: string;
@@ -14,6 +17,7 @@ type OrganicFieldCreator = <V>(
 const Field: OrganicFieldCreator = <V>(machine, context) => {
   let _attributes = {};
   let _value = undefined;
+  let _children = Children(NOTHING, []);
   // Setting and getting the value of a field
   // To populate field.value('a value');
   // To read field.value();
@@ -40,12 +44,16 @@ const Field: OrganicFieldCreator = <V>(machine, context) => {
       return _attributes[key];
     }
   };
+
+  const children = () => {};
+
   return {
     machine,
     context,
     value,
     attribute,
     attributes: _attributes,
+    children
   };
 };
 

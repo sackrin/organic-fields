@@ -55,4 +55,10 @@ describe('Organic/Field', () => {
       cat: { type: 'tabby' },
     });
   });
+
+  // FIELD CHILDREN
+
+  it('can set child fields', () => {
+
+  });
 });
