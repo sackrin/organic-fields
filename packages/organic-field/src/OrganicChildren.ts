@@ -4,7 +4,9 @@ class OrganicChildren<V> extends Array {
   }
   public value(): V {
     return this.reduce((curr, item) => {
-      return { ...curr, [item.machine]: item.value() };
+      return { ...curr, [item.machine]: item.value()}
     }, {});
   }
 }
+
+export default OrganicChildren;

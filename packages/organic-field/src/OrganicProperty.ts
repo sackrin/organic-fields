@@ -1,6 +1,6 @@
 class OrganicProperty<V> {
-  private _machine: string;
-  private _value?: V;
+  protected _machine: string;
+  protected _value?: V;
 
   constructor(machine: string) {
     this._machine = machine;
@@ -16,10 +16,14 @@ class OrganicProperty<V> {
     if (val) {
       this._value = val;
       return this;
+    } else if (this._children.length > 0) {
+      return this._children.value();
     } else {
       return this._value as V;
     }
   }
+
+
 }
 
 export default OrganicProperty;
