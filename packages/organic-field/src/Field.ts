@@ -15,9 +15,10 @@ type OrganicFieldCreator = <V>(
 ) => OrganicField<V>;
 
 const Field: OrganicFieldCreator = <V>(machine, context) => {
-  let _attributes = {};
-  let _value = undefined;
-  let _children = Children(NOTHING, []);
+  const _field = this;
+  this._attributes = {};
+  this._value = undefined;
+  this._children = Children(NOTHING, []);
   // Setting and getting the value of a field
   // To populate field.value('a value');
   // To read field.value();
@@ -25,10 +26,10 @@ const Field: OrganicFieldCreator = <V>(machine, context) => {
     // @TODO when children are added the value should be retrieved from the child
     // @TODO when events are implemented the get and set events should be triggered here
     if (args.length > 0) {
-      _value = args[0];
-      return _value;
+      _field._value = args[0];
+      return _field._value;
     } else {
-      return _value;
+      return _field._value;
     }
   };
   // Setting and getting attributes of a field
@@ -38,23 +39,25 @@ const Field: OrganicFieldCreator = <V>(machine, context) => {
   const attribute = <D>(...args: [string, D] | [string]) => {
     const [key, value] = args;
     if (args.length === 1) {
-      return _attributes[key];
+      return _field._attributes[key];
     } else {
-      _attributes[key] = value as D | void;
-      return _attributes[key];
+      _field._attributes[key] = value as D | void;
+      return _field._attributes[key];
     }
   };
 
   const children = () => {};
 
-  return {
+  const state = () => ({
     machine,
     context,
     value,
     attribute,
-    attributes: _attributes,
+    attributes: _field._attributes,
     children
-  };
+  });
+
+  return state();
 };
 
 export default Field;
