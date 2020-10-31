@@ -4,20 +4,35 @@ module.exports = (api) => {
   return {
     presets: [
       [
-        "@babel/env",
+        '@babel/env',
         {
           targets: {
-            node: "current",
+            node: 'current',
           },
         },
       ],
-      "@babel/preset-typescript",
+      '@babel/preset-typescript',
+    ],
+    plugins: [
+      [
+        'module-resolver',
+        {
+          root: ['./'],
+          alias: {
+            '@src': './src',
+            node_modules: './node_modules',
+          },
+        },
+      ],
+      '@babel/plugin-transform-spread',
+      '@babel/plugin-proposal-optional-chaining',
+      '@babel/plugin-proposal-nullish-coalescing-operator',
     ],
     env: {
       build: {
-        ignore: ["**/*.test.ts", "__tests__"],
+        ignore: ['**/*.test.ts', '__tests__'],
       },
     },
-    ignore: ["node_modules"],
+    ignore: ['node_modules'],
   };
 };

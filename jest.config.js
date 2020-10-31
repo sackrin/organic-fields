@@ -19,6 +19,7 @@ module.exports = {
   modulePathIgnorePatterns: ['lib'],
   moduleNameMapper: {
     '@sackrin/(.+)$': '<rootDir>packages/$1/src',
+    '@src/(.+)$': '<rootDir>packages/$1/src',
   },
   notify: true,
   notifyMode: 'always',
