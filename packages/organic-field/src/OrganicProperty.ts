@@ -1,17 +1,22 @@
 import OrganicCondition from './Types/OrganicCondition';
+import OrganicHydrated from './Types/OrganicHydrated';
+import doOrganicConditionsCheck from './Helpers/doOrganicConditionsCheck';
+import OrganicRoot from './OrganicRoot';
 
 class OrganicProperty<V, A = { [k: string]: any }> {
   protected _machine: string;
   protected _value?: V;
   protected _attributes?: A;
   protected _conditions?: OrganicCondition[];
-  protected _hydrated: {};
+  protected _hydrated: OrganicHydrated;
 
   constructor(machine: string) {
     this._machine = machine;
     this._attributes = {} as A;
     this._conditions = [];
-    this._hydrated = {};
+    this._hydrated = {
+      conditions: undefined,
+    };
   }
 
   get machine(): string {
@@ -24,6 +29,10 @@ class OrganicProperty<V, A = { [k: string]: any }> {
 
   get conditions(): OrganicCondition[] {
     return this._conditions;
+  }
+
+  get hydrated(): OrganicHydrated {
+    return this._hydrated;
   }
 
   // Setting and getting the value of a field
@@ -48,7 +57,7 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     }
   }
 
-  // Setting and getting attributes of a field
+  // Setting and getting attributes oOrganicRootf a field
   // Attributes are simple key/value meta data to add non field value data
   // To populate field.attribute('key', 'value);
   // To read field.attribute('key');
@@ -84,8 +93,8 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     return this;
   }
 
-  public hydrate(value: V, peripheral?: { [k: string]: any }): this;
-  public hydrate(value, peripheral = {}) {
+  public hydrate(root: OrganicRoot<any>, value: V, peripheral?: { [k: string]: any }): this;
+  public hydrate(root, value, peripheral = {}) {
     // Check if the value has changed since last hydration
     // Check if the peripherals have changed since last hydration
     // If neither the value or peripherals have changed then return the instance
@@ -93,6 +102,7 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     // Update the value with the passed value
     this.value(value);
     // @TODO Perform a condition check
+    this._hydrated.conditions = doOrganicConditionsCheck(root, this, this.conditions);
     // @TODO Perform a validation check
     // @TODO Perform any triggers
     // Return the instance for chaining

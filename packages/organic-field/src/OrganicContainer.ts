@@ -1,7 +1,5 @@
-import OrganicProperty from "@src/OrganicProperty";
+import OrganicProperty from './OrganicProperty';
 
-class OrganicContainer<V> extends OrganicProperty<V> {
-
-}
+class OrganicContainer<V> extends OrganicProperty<V> {}
 
 export default OrganicContainer;
