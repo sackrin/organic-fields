@@ -93,14 +93,12 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     return this;
   }
 
-  public hydrate(root: OrganicRoot<any>, value: V, peripheral?: { [k: string]: any }): this;
-  public hydrate(root, value, peripheral = {}) {
+  public hydrate(root: OrganicRoot<any>, peripheral?: { [k: string]: any }): this;
+  public hydrate(root, peripheral = {}) {
     // Check if the value has changed since last hydration
     // Check if the peripherals have changed since last hydration
     // If neither the value or peripherals have changed then return the instance
     // We do this to prevent unnecessary hydration and updates
-    // Update the value with the passed value
-    this.value(value);
     // @TODO Perform a condition check
     this._hydrated.conditions = doOrganicConditionsCheck(root, this, this.conditions);
     // @TODO Perform a validation check

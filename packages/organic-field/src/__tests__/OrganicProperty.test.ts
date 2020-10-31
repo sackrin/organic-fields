@@ -91,7 +91,8 @@ describe('Organic/OrganicProperty', () => {
       const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
       const fakeCondition = () => ({ passed: true });
       exampleProperty.condition(fakeCondition);
-      exampleProperty.hydrate(exampleRoot, 'Example', {});
+      exampleProperty.value('Example');
+      exampleProperty.hydrate(exampleRoot, {});
       expect(exampleProperty.hydrated.conditions).to.deep.equal({
         passed: true,
       });
@@ -102,7 +103,8 @@ describe('Organic/OrganicProperty', () => {
       const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
       const fakeCondition = () => ({ passed: false });
       exampleProperty.condition(fakeCondition);
-      exampleProperty.hydrate(exampleRoot, 'Example', {});
+      exampleProperty.value('Example');
+      exampleProperty.hydrate(exampleRoot, {});
       expect(exampleProperty.hydrated.conditions).to.deep.equal({
         passed: false,
       });
