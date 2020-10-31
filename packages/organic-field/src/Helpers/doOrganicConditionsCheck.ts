@@ -4,7 +4,7 @@ import OrganicCondition from '../Types/OrganicCondition';
 import OrganicRoot from '../OrganicRoot';
 
 type DoOrganicConditionsCheck = (
-  root: OrganicRoot<any>,
+  root: OrganicRoot<any, any>,
   property: OrganicProperty<any>,
   conditions: OrganicCondition[],
 ) => OrganicConditionResult;

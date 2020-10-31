@@ -2,19 +2,23 @@ import OrganicCondition from './Types/OrganicCondition';
 import OrganicHydrated from './Types/OrganicHydrated';
 import doOrganicConditionsCheck from './Helpers/doOrganicConditionsCheck';
 import OrganicRoot from './OrganicRoot';
+import OrganicLink, { OrganicLinkOptions } from './Types/OrganicLink';
 
 class OrganicProperty<V, A = { [k: string]: any }> {
+  protected _root: OrganicRoot<any, any>;
   protected _machine: string;
   protected _value?: V;
   protected _attributes?: A;
   protected _conditions?: OrganicCondition[];
   protected _hydrated: OrganicHydrated;
   protected _parent: OrganicProperty<any>;
+  protected _links: OrganicLink[];
 
   constructor(machine: string) {
     this._machine = machine;
     this._attributes = {} as A;
     this._conditions = [];
+    this._links = [];
     this._hydrated = {
       conditions: undefined,
     };
@@ -32,8 +36,28 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     return this._conditions;
   }
 
+  get links(): OrganicLink[] {
+    return this._links;
+  }
+
   get hydrated(): OrganicHydrated {
     return this._hydrated;
+  }
+
+  public root(): OrganicRoot<any, any>;
+  public root(root: OrganicRoot<any, any>): this;
+  public root(...args: [OrganicRoot<any, any>] | []) {
+    // Deconstruct the possible root from the args
+    const [root] = args;
+    // If there is one arg we are setting the parent for this property
+    if (args.length === 1) {
+      // Update the root of the property
+      this._root = root;
+      // Return the instance for chaining
+      return this;
+    } else {
+      return this._root;
+    }
   }
 
   public parent(): OrganicProperty<any>;
@@ -43,7 +67,7 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     const [parent] = args;
     // If there is one arg we are setting the parent for this property
     if (args.length === 1) {
-      // Update the value of the property
+      // Update the parent of the property
       this._parent = parent;
       // Return the instance for chaining
       return this;
@@ -110,14 +134,47 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     return this;
   }
 
-  public hydrate(root: OrganicRoot<any>, peripheral?: { [k: string]: any }): this;
+  // Linking to other fields
+  // This is useful for hard coded
+  // @param relative: if the link is relative to this field's position within the tree
+  // @twoWay: if the linked field should also have a link established to this field
+  public link(path: string, options?: OrganicLinkOptions): this;
+  public link(path, options = {}) {
+    // Add the link to this field's list of links
+    // We will not be able to resolve the links until later
+    // This is because the other fields we are linking may not have been added to the organic tree yet
+    this._links.push({ path, field: undefined, options });
+    // Return the instance for chaining
+    return this;
+  }
+
+  // Resolve linked fields
+  // This should only be done when the field tree has been built or changes have been made
+  public resolve(): this;
+  public resolve() {
+    // Loop through the links we have
+    this.links.forEach((link) => {
+      // If the link already has a resolved field move on
+      // @TODO should we allow to disable this
+      if (link.field) return true;
+      //
+    });
+    // Return the instance for chaining
+    return this;
+  }
+
+  public hydrate<R, P>(root: OrganicRoot<R, P>, peripheral: P): this;
   public hydrate(root, peripheral = {}) {
     // Check if the value has changed since last hydration
     // Check if the peripherals have changed since last hydration
     // If neither the value or peripherals have changed then return the instance
     // We do this to prevent unnecessary hydration and updates
+    // Update the current root
+    this.root(root);
+    // Resolve the property links
+    this.resolve();
     // @TODO Perform a condition check
-    this._hydrated.conditions = doOrganicConditionsCheck(root, this, this.conditions);
+    this.hydrated.conditions = doOrganicConditionsCheck(root, this, this.conditions);
     // @TODO Perform a validation check
     // @TODO Perform any triggers
     // Return the instance for chaining

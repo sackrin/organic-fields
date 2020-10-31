@@ -73,20 +73,21 @@ describe('Organic/OrganicProperty', () => {
   describe('Organic Property Parent', () => {
     it('can have a parent when part of container', () => {
       const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
-      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
       exampleRoot.child(exampleProperty);
       expect(exampleProperty.parent()).to.equal(exampleRoot);
     });
   });
 
-  // describe('Organic Property Linking', () => {
-  //   it('can link the property parent', () => {
-  //     const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
-  //     const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
-  //     exampleRoot.child(exampleProperty.link('parent'));
-  //     expect(exampleProperty.links.parent).to.equal(exampleRoot);
-  //   });
-  // });
+  describe('Organic Property Linking', () => {
+    it('can link the property parent', () => {
+      const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
+      exampleRoot.child(exampleProperty.link('parent'));
+      exampleRoot.peripherals({}).hydrate();
+      expect(exampleProperty.links.find((link) => link.path === 'parent').field).to.equal(exampleRoot);
+    });
+  });
 
   describe('Organic Property Condition', () => {
     it('can set a organic property condition check', () => {
@@ -106,7 +107,7 @@ describe('Organic/OrganicProperty', () => {
 
     it('can determine an organic property as passed after passing a single condition check', () => {
       const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
-      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
       const fakeCondition = () => ({ passed: true });
       exampleProperty.condition(fakeCondition);
       exampleProperty.value('Example');
@@ -118,7 +119,7 @@ describe('Organic/OrganicProperty', () => {
 
     it('can determine an organic property as not passed after passing a single condition check', () => {
       const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
-      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
       const fakeCondition = () => ({ passed: false });
       exampleProperty.condition(fakeCondition);
       exampleProperty.value('Example');

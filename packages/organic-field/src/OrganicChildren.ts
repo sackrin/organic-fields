@@ -8,8 +8,15 @@ class OrganicChildren<V> extends Array {
     this._parent = parent;
   }
 
+  // Override of the existing array push method
   public push(...items: any[]): number {
-    super.push.apply(this, items);
+    // Loop through the provided items
+    // Ensure that each new child has the correct parent
+    super.push.apply(
+      this,
+      items.map((item) => item.parent(this._parent)),
+    );
+    // Return the new length of the array
     return this.length;
   }
 
