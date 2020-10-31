@@ -4,10 +4,7 @@
     "baseUrl": ".",
     "outDir": "./lib",
     "rootDir": "./src",
-    "noEmit": true,
-    "paths": {
-      "@src/*": ["src/*"]
-    }
+    "noEmit": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "lib"]
