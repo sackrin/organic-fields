@@ -1,6 +1,18 @@
 import OrganicProperty from './OrganicProperty';
 
 class OrganicChildren<V> extends Array {
+  protected _parent: OrganicProperty<any>;
+
+  constructor(parent: OrganicProperty<any>) {
+    super();
+    this._parent = parent;
+  }
+
+  public push(...items: any[]): number {
+    super.push.apply(this, items);
+    return this.length;
+  }
+
   // Setting and getting the value of a collection of children
   // To populate children.value({ exampleField: 'exampleValue' });
   // To read children.value();

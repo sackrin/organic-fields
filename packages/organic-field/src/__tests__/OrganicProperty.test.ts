@@ -70,6 +70,24 @@ describe('Organic/OrganicProperty', () => {
     });
   });
 
+  describe('Organic Property Parent', () => {
+    it('can have a parent when part of container', () => {
+      const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
+      exampleRoot.child(exampleProperty);
+      expect(exampleProperty.parent()).to.equal(exampleRoot);
+    });
+  });
+
+  // describe('Organic Property Linking', () => {
+  //   it('can link the property parent', () => {
+  //     const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
+  //     const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
+  //     exampleRoot.child(exampleProperty.link('parent'));
+  //     expect(exampleProperty.links.parent).to.equal(exampleRoot);
+  //   });
+  // });
+
   describe('Organic Property Condition', () => {
     it('can set a organic property condition check', () => {
       const exampleProperty = new OrganicProperty<void | string>('exampleProperty');

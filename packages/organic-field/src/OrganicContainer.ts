@@ -6,7 +6,7 @@ class OrganicContainer<V> extends OrganicProperty<V> {
 
   constructor(machine) {
     super(machine);
-    this._children = new OrganicChildren<V>();
+    this._children = new OrganicChildren<V>(this);
   }
 
   get children(): OrganicChildren<V> {

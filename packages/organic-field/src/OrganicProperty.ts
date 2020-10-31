@@ -9,6 +9,7 @@ class OrganicProperty<V, A = { [k: string]: any }> {
   protected _attributes?: A;
   protected _conditions?: OrganicCondition[];
   protected _hydrated: OrganicHydrated;
+  protected _parent: OrganicProperty<any>;
 
   constructor(machine: string) {
     this._machine = machine;
@@ -33,6 +34,22 @@ class OrganicProperty<V, A = { [k: string]: any }> {
 
   get hydrated(): OrganicHydrated {
     return this._hydrated;
+  }
+
+  public parent(): OrganicProperty<any>;
+  public parent(parent: OrganicProperty<any>): this;
+  public parent(...args: [OrganicProperty<any>] | []) {
+    // Deconstruct the possible parent from the args
+    const [parent] = args;
+    // If there is one arg we are setting the parent for this property
+    if (args.length === 1) {
+      // Update the value of the property
+      this._parent = parent;
+      // Return the instance for chaining
+      return this;
+    } else {
+      return this._parent;
+    }
   }
 
   // Setting and getting the value of a field

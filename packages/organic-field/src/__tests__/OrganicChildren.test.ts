@@ -4,6 +4,7 @@ import OrganicProperty from '../OrganicProperty';
 
 describe('Organic/OrganicChildren', () => {
   it('can have a child added to the children', () => {
+    const exampleParent = new Or<void | string>('exampleProperty');
     const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
     const exampleChildren = new OrganicChildren<{ exampleProperty: string }>();
     exampleChildren.push(exampleProperty);
