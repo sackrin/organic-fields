@@ -31,7 +31,7 @@ class OrganicRoot<V, P> extends OrganicContainer<V> {
   public hydrate<V, P>(): this;
   public hydrate() {
     // Pass this object as the root
-    return super.hydrate<V, P>(this, this.peripherals());
+    return super.hydrate<V, P>(this);
   }
 }
 

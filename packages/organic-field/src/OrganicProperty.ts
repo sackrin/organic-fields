@@ -4,6 +4,7 @@ import doOrganicConditionsCheck from './Helpers/doOrganicConditionsCheck';
 import OrganicRoot from './OrganicRoot';
 import OrganicLink, { OrganicLinkOptions } from './Types/OrganicLink';
 import doResolveFieldByPath from './Helpers/doResolveFieldByPath';
+import OrganicValidator from './Types/OrganicValidator';
 
 class OrganicProperty<V, A = { [k: string]: any }> {
   protected _root: OrganicRoot<any, any>;
@@ -11,6 +12,7 @@ class OrganicProperty<V, A = { [k: string]: any }> {
   protected _value?: V;
   protected _attributes?: A;
   protected _conditions?: OrganicCondition[];
+  protected _validators?: OrganicValidator[];
   protected _hydrated: OrganicHydrated;
   protected _parent: OrganicProperty<any>;
   protected _links: OrganicLink[];
@@ -35,6 +37,10 @@ class OrganicProperty<V, A = { [k: string]: any }> {
 
   get conditions(): OrganicCondition[] {
     return this._conditions;
+  }
+
+  get validators(): OrganicValidator[] {
+    return this._validators;
   }
 
   get links(): OrganicLink[] {
@@ -135,6 +141,17 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     return this;
   }
 
+  // Validation checks will result in a validation true or false result
+  // A validator will be added for each time validator is called (they stack)
+  // Fields which fail validator checks can be used to determine the validity of a field
+  public validator(...validators: OrganicValidator[]): this;
+  public validator(...validators) {
+    // Merge the validator into the list of validators
+    this._validators = [...this._validators, ...validators];
+    // Return the instance for chaining
+    return this;
+  }
+
   // Linking to other fields
   // This is useful for hard coded
   // @param relative: if the link is relative to this field's position within the tree
@@ -167,8 +184,8 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     return this;
   }
 
-  public hydrate<R, P>(root: OrganicRoot<R, P>, peripheral: P): this;
-  public hydrate(root, peripheral = {}) {
+  public hydrate<R, P>(root: OrganicRoot<R, P>): this;
+  public hydrate(root) {
     // Check if the value has changed since last hydration
     // Check if the peripherals have changed since last hydration
     // If neither the value or peripherals have changed then return the instance
@@ -180,6 +197,7 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     // @TODO Perform a condition check
     this.hydrated.conditions = doOrganicConditionsCheck(root, this, this.conditions);
     // @TODO Perform a validation check
+    this.hydrated.validation = doOrganicValidatorCheck(root, this, this.validators);
     // @TODO Perform any triggers
     // Return the instance for chaining
     return this;

@@ -48,12 +48,12 @@ class OrganicContainer<V> extends OrganicProperty<V> {
     }
   }
 
-  public hydrate<R, P>(root: OrganicRoot<R, P>, peripheral: P): this;
-  public hydrate(root, peripheral) {
+  public hydrate<R, P>(root: OrganicRoot<R, P>): this;
+  public hydrate(root) {
     // Update the current root
-    super.hydrate(root, peripheral);
+    super.hydrate(root);
     // Loop through each field and hydrate
-    this._children.forEach((child) => child.hydrate(root, peripheral));
+    this._children.forEach((child) => child.hydrate(root));
     // Return the instance for chaining
     return this;
   }
