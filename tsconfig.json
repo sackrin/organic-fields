@@ -8,12 +8,13 @@
     "declaration": true,
     "rootDir": "./",
     "baseUrl": "./",
+    "types": ["node", "jest"],
     "paths": {
+      "@sackrin/organic-property/*": ["packages/organic-property/src/*"],
+      "@sackrin/organic-container/*": ["packages/organic-container/src/*"],
       "*": ["node_modules", "packages"]
-    },
-    "types": ["node", "jest"]
+    }
   },
   "include": ["packages", "jest-dom/extend-expect"],
-  "exclude": ["node_modules", "lib"],
-
+  "exclude": ["node_modules", "lib"]
 }
