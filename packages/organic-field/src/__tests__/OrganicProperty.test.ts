@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import OrganicProperty from '../OrganicProperty';
 import OrganicRoot from '../OrganicRoot';
+import OrganicContainer from '../OrganicContainer';
 
 describe('Organic/OrganicProperty', () => {
   it('can create a simple organic property', () => {
@@ -70,6 +71,63 @@ describe('Organic/OrganicProperty', () => {
     });
   });
 
+  describe('Organic Property Parent', () => {
+    it('can have a parent when part of container', () => {
+      const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
+      exampleRoot.child(exampleProperty);
+      expect(exampleProperty.parent()).to.equal(exampleRoot);
+    });
+  });
+
+  describe('Organic Property Linking', () => {
+    type ExampleTree = {
+      uuid: string;
+      person: {
+        firstName: void | string;
+        surname: void | string;
+      };
+    };
+
+    it('can link the field to the parent', () => {
+      const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
+      exampleRoot.child(exampleProperty.link('parent', '__parent__'));
+      exampleRoot.peripherals({}).hydrate();
+      expect(exampleProperty.links.find((link) => link.path === '__parent__').field).to.equal(exampleRoot);
+    });
+
+    it('can link the field to a field relative to itself', () => {
+      const exampleTree = new OrganicRoot<{ exampleProperty: void | string }, {}>()
+        .child(new OrganicProperty<string>('uuid'))
+        .child(
+          new OrganicContainer<ExampleTree>('personal')
+            .child(new OrganicProperty<void | string>('firstName').link('surname', './surname'))
+            .child(new OrganicProperty<void | string>('surname')),
+        );
+      exampleTree.peripherals({}).hydrate();
+      const firstName = exampleTree.children[1].children[0];
+      const surname = exampleTree.children[1].children[1];
+      expect(firstName.links.find((link) => link.path === './surname').field).to.equal(surname);
+    });
+
+    it('can link the field to a field absolute from the root', () => {
+      const exampleTree = new OrganicRoot<{ exampleProperty: void | string }, {}>()
+        .child(new OrganicProperty<string>('uuid'))
+        .child(
+          new OrganicContainer<ExampleTree>('personal')
+            .child(
+              new OrganicProperty<void | string>('firstName').link('surname', 'personal/surname', { absolute: true }),
+            )
+            .child(new OrganicProperty<void | string>('surname')),
+        );
+      exampleTree.peripherals({}).hydrate();
+      const firstName = exampleTree.children[1].children[0];
+      const surname = exampleTree.children[1].children[1];
+      expect(firstName.links.find((link) => link.path === 'personal/surname').field).to.equal(surname);
+    });
+  });
+
   describe('Organic Property Condition', () => {
     it('can set a organic property condition check', () => {
       const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
@@ -88,7 +146,7 @@ describe('Organic/OrganicProperty', () => {
 
     it('can determine an organic property as passed after passing a single condition check', () => {
       const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
-      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
       const fakeCondition = () => ({ passed: true });
       exampleProperty.condition(fakeCondition);
       exampleProperty.value('Example');
@@ -100,7 +158,7 @@ describe('Organic/OrganicProperty', () => {
 
     it('can determine an organic property as not passed after passing a single condition check', () => {
       const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
-      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }>();
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
       const fakeCondition = () => ({ passed: false });
       exampleProperty.condition(fakeCondition);
       exampleProperty.value('Example');

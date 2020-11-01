@@ -1,22 +1,27 @@
 import { expect } from 'chai';
 import OrganicChildren from '../OrganicChildren';
 import OrganicProperty from '../OrganicProperty';
+import OrganicCollection from '../OrganicCollection';
 
 describe('Organic/OrganicChildren', () => {
   it('can have a child added to the children', () => {
+    const exampleParent = new OrganicCollection<{ exampleProperty: string }>('exampleProperty');
     const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
-    const exampleChildren = new OrganicChildren<{ exampleProperty: string }>();
+    const exampleChildren = new OrganicChildren<{ exampleProperty: string }>(exampleParent);
     exampleChildren.push(exampleProperty);
     expect(exampleChildren.length).to.equal(1);
   });
 
   it('can add/update values for all children', () => {
+    const exampleParent = new OrganicCollection<{ examplePropertyOne: string; examplePropertyTwo: string }>(
+      'exampleProperty',
+    );
     const examplePropertyOne = new OrganicProperty<void | string>('examplePropertyOne');
     const examplePropertyTwo = new OrganicProperty<void | string>('examplePropertyTwo');
     const exampleChildren = new OrganicChildren<{
       examplePropertyOne: void | string;
       examplePropertyTwo: void | string;
-    }>();
+    }>(exampleParent);
     exampleChildren.push(examplePropertyOne);
     exampleChildren.push(examplePropertyTwo);
     exampleChildren.value({
@@ -32,12 +37,15 @@ describe('Organic/OrganicChildren', () => {
   });
 
   it('can add/update values for some of the children', () => {
+    const exampleParent = new OrganicCollection<{ examplePropertyOne: string; examplePropertyTwo: string }>(
+      'exampleProperty',
+    );
     const examplePropertyOne = new OrganicProperty<void | string>('examplePropertyOne');
     const examplePropertyTwo = new OrganicProperty<void | string>('examplePropertyTwo');
     const exampleChildren = new OrganicChildren<{
       examplePropertyOne: void | string;
       examplePropertyTwo?: void | string;
-    }>();
+    }>(exampleParent);
     exampleChildren.push(examplePropertyOne);
     exampleChildren.push(examplePropertyTwo);
     exampleChildren.value({
@@ -52,12 +60,15 @@ describe('Organic/OrganicChildren', () => {
   });
 
   it('can retrieve the correct values for fields updated outside of the children values method', () => {
+    const exampleParent = new OrganicCollection<{ examplePropertyOne: string; examplePropertyTwo: string }>(
+      'exampleProperty',
+    );
     const examplePropertyOne = new OrganicProperty<void | string>('examplePropertyOne');
     const examplePropertyTwo = new OrganicProperty<void | string>('examplePropertyTwo');
     const exampleChildren = new OrganicChildren<{
       examplePropertyOne: void | string;
       examplePropertyTwo: void | string;
-    }>();
+    }>(exampleParent);
     exampleChildren.push(examplePropertyOne);
     exampleChildren.push(examplePropertyTwo);
     exampleChildren.value({

@@ -1,12 +1,13 @@
 import OrganicProperty from './OrganicProperty';
 import OrganicChildren from './OrganicChildren';
+import OrganicRoot from './OrganicRoot';
 
 class OrganicContainer<V> extends OrganicProperty<V> {
   protected _children: OrganicChildren<V>;
 
   constructor(machine) {
     super(machine);
-    this._children = new OrganicChildren<V>();
+    this._children = new OrganicChildren<V>(this);
   }
 
   get children(): OrganicChildren<V> {
@@ -45,6 +46,16 @@ class OrganicContainer<V> extends OrganicProperty<V> {
     } else if (this._children.length > 0) {
       return this._children.value();
     }
+  }
+
+  public hydrate<R, P>(root: OrganicRoot<R, P>, peripheral: P): this;
+  public hydrate(root, peripheral) {
+    // Update the current root
+    super.hydrate(root, peripheral);
+    // Loop through each field and hydrate
+    this._children.forEach((child) => child.hydrate(root, peripheral));
+    // Return the instance for chaining
+    return this;
   }
 }
 
