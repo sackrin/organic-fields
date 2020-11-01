@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import OrganicProperty from '../OrganicProperty';
-import OrganicRoot from '../OrganicRoot';
-import OrganicContainer from '../OrganicContainer';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
+import OrganicContainer from '@sackrin/organic-container/OrganicContainer';
 
 describe('Organic/OrganicProperty', () => {
   it('can create a simple organic property', () => {

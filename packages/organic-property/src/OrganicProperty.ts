@@ -2,10 +2,10 @@ import OrganicCondition from './Types/OrganicCondition';
 import OrganicHydrated from './Types/OrganicHydrated';
 import doConditionsCheck from './Helpers/doConditionsCheck';
 import doValidatorCheck from './Helpers/doValidatorCheck';
-import OrganicRoot from './OrganicRoot';
 import OrganicLink, { OrganicLinkOptions } from './Types/OrganicLink';
 import doResolveFieldByPath from './Helpers/doResolveFieldByPath';
 import OrganicValidator from './Types/OrganicValidator';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
 
 class OrganicProperty<V, A = { [k: string]: any }> {
   protected _root: OrganicRoot<any, any>;

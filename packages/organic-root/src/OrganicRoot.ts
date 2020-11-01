@@ -1,4 +1,4 @@
-import OrganicContainer from './OrganicContainer';
+import OrganicContainer from '@sackrin/organic-container/OrganicContainer';
 
 class OrganicRoot<V, P> extends OrganicContainer<V> {
   protected _peripheral: P;

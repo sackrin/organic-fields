@@ -1,7 +1,7 @@
 {
-  "name": "@sackrin/organic-property",
-  "version": "0.0.1",
-  "description": "Provides the base field component to create organic fields",
+  "name": "@sackrin/organic-root",
+  "version": "0.0.0",
+  "description": "",
   "author": "Hilary <h.t.osborne@gmail.com>",
   "homepage": "https://github.com/sackrin/organic-fields#readme",
   "license": "MIT",
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sackrin/organic-fields.git"
+    "url": "git+https://github.com/sackrin/organic-root.git"
   },
   "scripts": {
     "build": "rimraf lib && yarn run build:js && yarn run build:ts",

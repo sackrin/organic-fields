@@ -1,12 +1,15 @@
-import OrganicProperty from './OrganicProperty';
-import OrganicChildren from './OrganicChildren';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
+import OrganicProperty from '@sackrin/organic-property/OrganicProperty';
+import OrganicChildren from '@sackrin/organic-children/OrganicChildren';
 
-class OrganicCollection<V> extends OrganicProperty<V> {
+class OrganicContainer<V> extends OrganicProperty<V> {
   protected _children: OrganicChildren<V>;
 
   constructor(machine) {
     super(machine);
     this._children = new OrganicChildren<V>(this);
+    // @TODO inject a children validator check
+    // this.validator(checkChildResultValidator);
   }
 
   get children(): OrganicChildren<V> {
@@ -24,6 +27,10 @@ class OrganicCollection<V> extends OrganicProperty<V> {
     return this;
   }
 
+  // Setting and getting the values of a field
+  // Collections take object literals as a value
+  // To populate field.value({ exampleFieldOne: 'value', exampleFieldTwo: 'value' });
+  // To read field.value();
   public value(): V;
   public value(val: V): this;
   public value(...args: [V] | []) {
@@ -42,6 +49,16 @@ class OrganicCollection<V> extends OrganicProperty<V> {
       return this._children.value();
     }
   }
+
+  public hydrate<R, P>(root: OrganicRoot<R, P>): this;
+  public hydrate(root) {
+    // Loop through each field and hydrate
+    this._children.forEach((child) => child.hydrate(root));
+    // Update the current root
+    super.hydrate(root);
+    // Return the instance for chaining
+    return this;
+  }
 }
 
-export default OrganicCollection;
+export default OrganicContainer;

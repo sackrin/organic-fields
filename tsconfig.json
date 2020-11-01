@@ -14,5 +14,6 @@
     "types": ["node", "jest"]
   },
   "include": ["packages", "jest-dom/extend-expect"],
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["node_modules", "lib"],
+
 }

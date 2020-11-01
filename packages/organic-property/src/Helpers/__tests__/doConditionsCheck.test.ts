@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import doConditionsCheck from '../doConditionsCheck';
 import OrganicProperty from '../../OrganicProperty';
-import OrganicRoot from '../../OrganicRoot';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
 
 describe('Organic/Helpers/doConditionsCheck', () => {
   it('can provide a passing result for a single simple condition check', () => {

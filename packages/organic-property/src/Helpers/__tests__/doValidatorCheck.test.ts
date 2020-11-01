@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import doValidatorCheck from '../doValidatorCheck';
 import OrganicProperty from '../../OrganicProperty';
-import OrganicRoot from '../../OrganicRoot';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
 
 describe('Organic/Helpers/doValidatorCheck', () => {
   it('can provide a passing result for a single simple validator check', () => {

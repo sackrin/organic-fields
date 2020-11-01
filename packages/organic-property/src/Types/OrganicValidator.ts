@@ -1,6 +1,6 @@
 import OrganicProperty from '../OrganicProperty';
 import OrganicValidatorResult from './OrganicValidatorResult';
-import OrganicRoot from '../OrganicRoot';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
 
 type OrganicValidator = (
   root: OrganicRoot<any, any>,

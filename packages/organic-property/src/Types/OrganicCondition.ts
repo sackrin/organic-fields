@@ -1,6 +1,6 @@
 import OrganicProperty from '../OrganicProperty';
 import OrganicConditionResult from './OrganicConditionResult';
-import OrganicRoot from '../OrganicRoot';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
 
 type OrganicCondition = (
   root: OrganicRoot<any, any>,

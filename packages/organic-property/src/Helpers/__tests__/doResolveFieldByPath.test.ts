@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import doResolveFieldByPath from '../doResolveFieldByPath';
 import OrganicProperty from '../../OrganicProperty';
-import OrganicRoot from '../../OrganicRoot';
-import OrganicContainer from '../../OrganicContainer';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
+import OrganicContainer from '@sackrin/organic-container/OrganicContainer';
 
 type ExampleTree = {
   uuid: string;

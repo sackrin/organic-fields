@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import OrganicContainer from '../OrganicContainer';
-import OrganicProperty from '../OrganicProperty';
-import OrganicRoot from '../OrganicRoot';
+import OrganicProperty from '@sackrin/organic-property/OrganicProperty';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
 
 describe('Organic/OrganicContainer', () => {
   describe('Organic Container Children', () => {

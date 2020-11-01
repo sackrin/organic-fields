@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import OrganicChildren from '../OrganicChildren';
-import OrganicProperty from '../OrganicProperty';
-import OrganicCollection from '../OrganicCollection';
+import OrganicProperty from '@sackrin/organic-property/OrganicProperty';
+import OrganicContainer from '@sackrin/organic-container/OrganicContainer';
 
 describe('Organic/OrganicChildren', () => {
   it('can have a child added to the children', () => {
-    const exampleParent = new OrganicCollection<{ exampleProperty: string }>('exampleProperty');
+    const exampleParent = new OrganicContainer<{ exampleProperty: string }>('exampleProperty');
     const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
     const exampleChildren = new OrganicChildren<{ exampleProperty: string }>(exampleParent);
     exampleChildren.push(exampleProperty);
@@ -13,7 +13,7 @@ describe('Organic/OrganicChildren', () => {
   });
 
   it('can add/update values for all children', () => {
-    const exampleParent = new OrganicCollection<{ examplePropertyOne: string; examplePropertyTwo: string }>(
+    const exampleParent = new OrganicContainer<{ examplePropertyOne: string; examplePropertyTwo: string }>(
       'exampleProperty',
     );
     const examplePropertyOne = new OrganicProperty<void | string>('examplePropertyOne');
@@ -37,7 +37,7 @@ describe('Organic/OrganicChildren', () => {
   });
 
   it('can add/update values for some of the children', () => {
-    const exampleParent = new OrganicCollection<{ examplePropertyOne: string; examplePropertyTwo: string }>(
+    const exampleParent = new OrganicContainer<{ examplePropertyOne: string; examplePropertyTwo: string }>(
       'exampleProperty',
     );
     const examplePropertyOne = new OrganicProperty<void | string>('examplePropertyOne');
@@ -60,7 +60,7 @@ describe('Organic/OrganicChildren', () => {
   });
 
   it('can retrieve the correct values for fields updated outside of the children values method', () => {
-    const exampleParent = new OrganicCollection<{ examplePropertyOne: string; examplePropertyTwo: string }>(
+    const exampleParent = new OrganicContainer<{ examplePropertyOne: string; examplePropertyTwo: string }>(
       'exampleProperty',
     );
     const examplePropertyOne = new OrganicProperty<void | string>('examplePropertyOne');

@@ -1,4 +1,4 @@
-import OrganicProperty from './OrganicProperty';
+import OrganicProperty from '@sackrin/organic-property/OrganicProperty';
 
 class OrganicChildren<V> extends Array {
   protected _parent: OrganicProperty<any>;
