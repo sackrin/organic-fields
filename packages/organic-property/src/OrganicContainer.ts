@@ -8,6 +8,8 @@ class OrganicContainer<V> extends OrganicProperty<V> {
   constructor(machine) {
     super(machine);
     this._children = new OrganicChildren<V>(this);
+    // @TODO inject a children validator check
+    // this.validator(checkChildResultValidator);
   }
 
   get children(): OrganicChildren<V> {
@@ -50,10 +52,10 @@ class OrganicContainer<V> extends OrganicProperty<V> {
 
   public hydrate<R, P>(root: OrganicRoot<R, P>): this;
   public hydrate(root) {
-    // Update the current root
-    super.hydrate(root);
     // Loop through each field and hydrate
     this._children.forEach((child) => child.hydrate(root));
+    // Update the current root
+    super.hydrate(root);
     // Return the instance for chaining
     return this;
   }

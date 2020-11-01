@@ -3,7 +3,7 @@ import OrganicProperty from '../OrganicProperty';
 import OrganicCondition from '../Types/OrganicCondition';
 import OrganicRoot from '../OrganicRoot';
 
-type DoOrganicConditionsCheck = (
+type DoConditionsCheck = (
   root: OrganicRoot<any, any>,
   property: OrganicProperty<any>,
   conditions: OrganicCondition[],
@@ -13,7 +13,7 @@ const OrganicConditionsInitialResult: OrganicConditionResult = {
   passed: true,
 };
 
-const doOrganicConditionsCheck: DoOrganicConditionsCheck = (root, property, conditions) => {
+const doConditionsCheck: DoConditionsCheck = (root, property, conditions) => {
   // Retrieve the previous result
   // This will help with conditions that want to be previous result aware
   const previousResult = property.hydrated.conditions;
@@ -24,4 +24,4 @@ const doOrganicConditionsCheck: DoOrganicConditionsCheck = (root, property, cond
   );
 };
 
-export default doOrganicConditionsCheck;
+export default doConditionsCheck;

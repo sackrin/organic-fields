@@ -128,6 +128,47 @@ describe('Organic/OrganicProperty', () => {
     });
   });
 
+  describe('Organic Property Validator', () => {
+    it('can set a organic property validator check', () => {
+      const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
+      const fakeValidator = () => ({ passed: true });
+      exampleProperty.validator(fakeValidator);
+      expect(exampleProperty.validators.length).to.equal(1);
+    });
+
+    it('can set multiple organic property validator checks', () => {
+      const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
+      const fakeValidatorOne = (property) => ({ passed: true });
+      const fakeValidatorTwo = (property) => ({ passed: true });
+      exampleProperty.validator(fakeValidatorOne, fakeValidatorTwo);
+      expect(exampleProperty.validators.length).to.equal(2);
+    });
+
+    it('can determine an organic property as passed after passing a single validator check', () => {
+      const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
+      const fakeValidator = () => ({ passed: true });
+      exampleProperty.validator(fakeValidator);
+      exampleProperty.value('Example');
+      exampleProperty.hydrate(exampleRoot);
+      expect(exampleProperty.hydrated.validators).to.deep.equal({
+        passed: true,
+      });
+    });
+
+    it('can determine an organic property as not passed after passing a single validator check', () => {
+      const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
+      const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
+      const fakeValidator = () => ({ passed: false });
+      exampleProperty.validator(fakeValidator);
+      exampleProperty.value('Example');
+      exampleProperty.hydrate(exampleRoot);
+      expect(exampleProperty.hydrated.validators).to.deep.equal({
+        passed: false,
+      });
+    });
+  });
+
   describe('Organic Property Condition', () => {
     it('can set a organic property condition check', () => {
       const exampleProperty = new OrganicProperty<void | string>('exampleProperty');

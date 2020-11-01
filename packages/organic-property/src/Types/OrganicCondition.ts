@@ -3,7 +3,7 @@ import OrganicConditionResult from './OrganicConditionResult';
 import OrganicRoot from '../OrganicRoot';
 
 type OrganicCondition = (
-  root: OrganicRoot<any>,
+  root: OrganicRoot<any, any>,
   property: OrganicProperty<any>,
   currentResult: OrganicConditionResult,
   previousResult: void | OrganicConditionResult,

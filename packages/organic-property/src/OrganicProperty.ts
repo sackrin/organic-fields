@@ -1,6 +1,7 @@
 import OrganicCondition from './Types/OrganicCondition';
 import OrganicHydrated from './Types/OrganicHydrated';
-import doOrganicConditionsCheck from './Helpers/doOrganicConditionsCheck';
+import doConditionsCheck from './Helpers/doConditionsCheck';
+import doValidatorCheck from './Helpers/doValidatorCheck';
 import OrganicRoot from './OrganicRoot';
 import OrganicLink, { OrganicLinkOptions } from './Types/OrganicLink';
 import doResolveFieldByPath from './Helpers/doResolveFieldByPath';
@@ -21,9 +22,11 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     this._machine = machine;
     this._attributes = {} as A;
     this._conditions = [];
+    this._validators = [];
     this._links = [];
     this._hydrated = {
       conditions: undefined,
+      validators: undefined,
     };
   }
 
@@ -195,9 +198,9 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     // Resolve the property links
     this.resolve();
     // @TODO Perform a condition check
-    this.hydrated.conditions = doOrganicConditionsCheck(root, this, this.conditions);
+    this.hydrated.conditions = doConditionsCheck(root, this, this.conditions);
     // @TODO Perform a validation check
-    this.hydrated.validation = doOrganicValidatorCheck(root, this, this.validators);
+    this.hydrated.validators = doValidatorCheck(root, this, this.validators);
     // @TODO Perform any triggers
     // Return the instance for chaining
     return this;
