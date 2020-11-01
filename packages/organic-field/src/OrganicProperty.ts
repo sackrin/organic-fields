@@ -3,6 +3,7 @@ import OrganicHydrated from './Types/OrganicHydrated';
 import doOrganicConditionsCheck from './Helpers/doOrganicConditionsCheck';
 import OrganicRoot from './OrganicRoot';
 import OrganicLink, { OrganicLinkOptions } from './Types/OrganicLink';
+import doResolveFieldByPath from './Helpers/doResolveFieldByPath';
 
 class OrganicProperty<V, A = { [k: string]: any }> {
   protected _root: OrganicRoot<any, any>;
@@ -138,12 +139,12 @@ class OrganicProperty<V, A = { [k: string]: any }> {
   // This is useful for hard coded
   // @param relative: if the link is relative to this field's position within the tree
   // @twoWay: if the linked field should also have a link established to this field
-  public link(path: string, options?: OrganicLinkOptions): this;
-  public link(path, options = {}) {
+  public link(name: string, path: string, options?: OrganicLinkOptions): this;
+  public link(name, path, options = {}) {
     // Add the link to this field's list of links
     // We will not be able to resolve the links until later
     // This is because the other fields we are linking may not have been added to the organic tree yet
-    this._links.push({ path, field: undefined, options });
+    this._links.push({ name, path, field: undefined, options });
     // Return the instance for chaining
     return this;
   }
@@ -153,11 +154,14 @@ class OrganicProperty<V, A = { [k: string]: any }> {
   public resolve(): this;
   public resolve() {
     // Loop through the links we have
-    this.links.forEach((link) => {
+    this._links = this.links.map((link) => {
       // If the link already has a resolved field move on
       // @TODO should we allow to disable this
-      if (link.field) return true;
-      //
+      if (link.field) return link;
+      // Attempt to resolve the field
+      const field = doResolveFieldByPath(link.options?.absolute === true ? this.root() : this, link.path);
+      // If a field was resolved then update the link
+      return { ...link, field };
     });
     // Return the instance for chaining
     return this;
