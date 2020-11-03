@@ -1,6 +1,6 @@
-import OrganicContainer from '@sackrin/organic-container/OrganicContainer';
+import OrganicCoreContainer from '@sackrin/organic-core/OrganicCoreContainer';
 
-class OrganicRoot<V, P> extends OrganicContainer<V> {
+class OrganicRoot<V, P> extends OrganicCoreContainer<V> {
   protected _peripheral: P;
 
   constructor() {

@@ -1,0 +1,28 @@
+{
+  "name": "@sackrin/organic-core",
+  "version": "0.0.1",
+  "description": "Provides the base field component to create organic fields",
+  "author": "Hilary <h.t.osborne@gmail.com>",
+  "homepage": "https://github.com/sackrin/organic-fields#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "src/__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sackrin/organic-fields.git"
+  },
+  "scripts": {
+    "build": "rimraf lib && yarn run build:js && yarn run build:ts",
+    "build:ts": "tsc --project ./tsconfig.build.json",
+    "build:js": "BABEL_ENV=build babel --root-mode upward src --out-dir lib --extensions .ts,.tsx --no-comments && tsc --project ./tsconfig.json"
+  },
+  "bugs": {
+    "url": "https://github.com/sackrin/organic-fields/issues"
+  }
+}

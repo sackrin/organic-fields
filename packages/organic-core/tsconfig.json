@@ -6,16 +6,16 @@
     "rootDir": "./src",
     "noEmit": true,
     "paths": {
-      "@sackrin/organic-property/*": ["../organic-property/src/*"],
-      "@sackrin/organic-core/*": ["../organic-core/src/*"]
+      "@sackrin/organic-root/*": ["../organic-root/src/*"],
+      "@sackrin/organic-container/*": ["../organic-container/src/*"]
     }
   },
   "references": [
     {
-      "path": "../organic-property"
+      "path": "../organic-root"
     },
     {
-      "path": "../organic-core"
+      "path": "../organic-container"
     }
   ],
   "include": ["src/**/*"],

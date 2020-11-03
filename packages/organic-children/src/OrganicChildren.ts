@@ -1,9 +1,11 @@
-import OrganicProperty from '@sackrin/organic-property/OrganicProperty';
+import OrganicCoreProperty from '@sackrin/organic-core/OrganicCoreProperty';
+import OrganicCoreContainer from '@sackrin/organic-core/OrganicCoreContainer';
+import OrganicContainer from '@sackrin/organic-container/OrganicContainer';
 
 class OrganicChildren<V> extends Array {
-  protected _parent: OrganicProperty<any>;
+  protected _parent: OrganicContainer<any>;
 
-  constructor(parent: OrganicProperty<any>) {
+  constructor(parent: OrganicContainer<any>) {
     super();
     this._parent = parent;
   }
@@ -33,7 +35,7 @@ class OrganicChildren<V> extends Array {
       // Loop through each of the children
       // We need to loop through the children rather than the values
       // We do this so we can unset any that are not present in the value object
-      this.forEach((child: OrganicProperty<any>) => {
+      this.forEach((child: OrganicCoreProperty<any>) => {
         // Retrieve the value from the passed values
         // If this is undefined this is okay, the value will be set to undefined
         const value = values[child.machine];

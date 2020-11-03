@@ -6,6 +6,8 @@
     "declarationDir": "./lib",
     "rootDir": "./src",
     "paths": {
+      "@sackrin/organic-core/*": ["../organic-core/src/*"],
+      "@sackrin/organic-root/*": ["../organic-root/src/*"],
       "@sackrin/organic-property/*": ["../organic-property/src/*"],
       "@sackrin/organic-container/*": ["../organic-container/src/*"]
     }
@@ -13,6 +15,9 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules", "lib"],
   "references": [
+    {
+      "path": "../organic-core"
+    },
     {
       "path": "../organic-property"
     },

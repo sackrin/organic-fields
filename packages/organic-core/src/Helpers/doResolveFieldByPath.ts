@@ -1,5 +1,5 @@
 import OrganicProperty from '../OrganicProperty';
-import OrganicContainer from '../OrganicContainer';
+import OrganicContainer from '@sackrin/organic-container/OrganicContainer';
 
 type DoResolveFieldByPath = (
   origin: OrganicProperty<any> | OrganicContainer<any>,

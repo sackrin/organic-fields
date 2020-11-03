@@ -1,7 +1,7 @@
 import OrganicConditionResult from '../Types/OrganicConditionResult';
 import OrganicProperty from '../OrganicProperty';
 import OrganicCondition from '../Types/OrganicCondition';
-import OrganicRoot from '../OrganicRoot';
+import OrganicRoot from '@sackrin/organic-root/OrganicRoot';
 
 type DoConditionsCheck = (
   root: OrganicRoot<any, any>,
