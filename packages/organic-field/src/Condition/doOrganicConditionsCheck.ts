@@ -1,6 +1,6 @@
-import OrganicConditionResult from '../Types/OrganicConditionResult';
+import OrganicConditionResult from './Types/OrganicConditionResult';
 import OrganicProperty from '../OrganicProperty';
-import OrganicCondition from '../Types/OrganicCondition';
+import OrganicCondition from './Types/OrganicCondition';
 import OrganicRoot from '../OrganicRoot';
 
 type DoOrganicConditionsCheck = (

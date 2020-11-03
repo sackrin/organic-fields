@@ -1,8 +1,9 @@
 import OrganicProperty from '../OrganicProperty';
 import OrganicContainer from '../OrganicContainer';
+import OrganicRoot from '../OrganicRoot';
 
 type DoResolveFieldByPath = (
-  origin: OrganicProperty<any> | OrganicContainer<any>,
+  origin: OrganicRoot<any, any> | OrganicProperty<any> | OrganicContainer<any>,
   path: string,
   discriminator?: (field: OrganicProperty<any>) => OrganicProperty<any> | void,
 ) => void | OrganicProperty<any>;

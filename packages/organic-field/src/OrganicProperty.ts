@@ -1,10 +1,11 @@
-import OrganicCondition from './Types/OrganicCondition';
+import OrganicCondition from './Condition/Types/OrganicCondition';
 import OrganicHydrated from './Types/OrganicHydrated';
-import doOrganicConditionsCheck from './Helpers/doOrganicConditionsCheck';
+import doOrganicConditionsCheck from './Condition/doOrganicConditionsCheck';
 import OrganicRoot from './OrganicRoot';
 import OrganicLink, { OrganicLinkOptions } from './Types/OrganicLink';
 import doResolveFieldByPath from './Helpers/doResolveFieldByPath';
-import OrganicValidator from './Types/OrganicValidator';
+import OrganicValidator from './Validation/Types/OrganicValidator';
+import doOrganicValidatorCheck from './Validation/doOrganicValidatorCheck';
 
 class OrganicProperty<V, A = { [k: string]: any }> {
   protected _root: OrganicRoot<any, any>;
@@ -21,9 +22,11 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     this._machine = machine;
     this._attributes = {} as A;
     this._conditions = [];
+    this._validators = [];
     this._links = [];
     this._hydrated = {
       conditions: undefined,
+      validation: undefined,
     };
   }
 

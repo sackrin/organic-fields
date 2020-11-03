@@ -1,6 +1,6 @@
-import OrganicProperty from '../OrganicProperty';
+import OrganicProperty from '../../OrganicProperty';
 import OrganicConditionResult from './OrganicConditionResult';
-import OrganicRoot from '../OrganicRoot';
+import OrganicRoot from '../../OrganicRoot';
 
 type OrganicCondition = (
   root: OrganicRoot<any, any>,
