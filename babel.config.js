@@ -19,7 +19,7 @@ module.exports = (api) => {
         {
           root: ['./'],
           alias: {
-            '@src': './src',
+            '@sackrin/organic-property': '.packages/organic-property/src',
             node_modules: './node_modules',
           },
         },

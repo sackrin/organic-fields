@@ -22,6 +22,15 @@ const details = Field<{ firstName?: string, lastName?: string }>('details', CONT
     // Provide validation logic for this field
     // Returns { valid: true|false, messages: [] }
     .validate(doSomeValidationCheck)
+    .validate(OrganicRulesValidator('required', 'in:12'))
+    .validate(OrganicPathValueValidator('../exampleField', '===', 'someValue'))
+    .validate(OrganicPathValueValidator('../exampleField', someCallback))
+    .validate(OrganicAssertValidator(
+        OrganicAssert()
+        .is('self', '===', 'someValue')
+        .or('self', '===', 'someOtherValue')
+        .or(OrganicAssert().is('../example', '===', 'someValue'))
+    ))
     // Children adds child fields
     // This can only be called once or it will replace the existing children if called again
     // Children can either be a container or a collection

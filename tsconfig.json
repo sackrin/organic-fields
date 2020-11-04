@@ -9,7 +9,11 @@
     "rootDir": "./",
     "baseUrl": "./",
     "paths": {
-      "*": ["node_modules", "packages"]
+      "*": ["node_modules", "packages"],
+      "@sackrin/organic-assert/*": ["packages/organic-assert/src/*"],
+      "@sackrin/organic-property/*": ["packages/organic-property/src/*"],
+      "@sackrin/organic-validator/*": ["packages/organic-validator/src/*"],
+      "@sackrin/organic-condition/*": ["packages/organic-condition/src/*"]
     },
     "types": ["node", "jest"]
   },

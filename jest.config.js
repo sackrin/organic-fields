@@ -18,8 +18,10 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js'],
   modulePathIgnorePatterns: ['lib'],
   moduleNameMapper: {
-    '@sackrin/(.+)$': '<rootDir>packages/$1/src',
-    '@src/(.+)$': '<rootDir>packages/$1/src',
+    '@sackrin/organic-assert': '<rootDir>packages/organic-assert/src',
+    '@sackrin/organic-condition': '<rootDir>packages/organic-condition/src',
+    '@sackrin/organic-property': '<rootDir>packages/organic-property/src',
+    '@sackrin/organic-validator': '<rootDir>packages/organic-validator/src',
   },
   notify: true,
   notifyMode: 'always',

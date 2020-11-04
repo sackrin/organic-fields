@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "declarationDir": "./lib",
+    "rootDir": "./src",
+    "paths": {
+      "@sackrin/organic-assert/*": ["../organic-assert/src/*"],
+      "@sackrin/organic-property/*": ["../organic-property/src/*"]
+    }
+  },
+  "references": [
+    {
+      "path": "../organic-assert"
+    },
+    {
+      "path": "../organic-property"
+    }
+  ],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "lib"]
+}

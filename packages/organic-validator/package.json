@@ -1,7 +1,7 @@
 {
-  "name": "@sackrin/organic-field",
+  "name": "@sackrin/organic-validators",
   "version": "0.0.1",
-  "description": "Provides the base field component to create organic fields",
+  "description": "Provides ready to use validators",
   "author": "Hilary <h.t.osborne@gmail.com>",
   "homepage": "https://github.com/sackrin/organic-fields#readme",
   "license": "MIT",
