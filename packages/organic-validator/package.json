@@ -11,14 +11,16 @@
     "test": "src/__tests__"
   },
   "files": [
-      "lib"
+    "lib"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sackrin/organic-fields.git"
   },
   "dependencies": {
-    "@sackrin/organic-property": "^0.0.1"
+    "@sackrin/organic-property": "^0.0.1",
+    "@types/validatorjs": "^3.15.0",
+    "validatorjs": "^3.20.0"
   },
   "scripts": {
     "build": "rimraf lib && yarn run build:js && yarn run build:ts",
