@@ -1,4 +1,4 @@
-import OrganicValidator from '@sackrin/organic-property/Validation/Types/OrganicValidator';
+import OrganicValidator from '@sackrin/organic-property/lib/Validation/Types/OrganicValidator';
 
 type OrganicRulesValidatorCallback = (rules: string[]) => OrganicValidator;
 

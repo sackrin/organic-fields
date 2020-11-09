@@ -19,9 +19,9 @@ module.exports = {
   modulePathIgnorePatterns: ['lib'],
   moduleNameMapper: {
     '@sackrin/organic-assert': '<rootDir>packages/organic-assert/src',
-    '@sackrin/organic-condition': '<rootDir>packages/organic-condition/src',
-    '@sackrin/organic-property': '<rootDir>packages/organic-property/src',
-    '@sackrin/organic-validator': '<rootDir>packages/organic-validator/src',
+    '@sackrin/organic-condition/lib/(.*)$': '<rootDir>packages/organic-condition/src/$1',
+    '@sackrin/organic-property/lib/(.*)$': '<rootDir>packages/organic-property/src/$1',
+    '@sackrin/organic-validator/lib/(.*)$': '<rootDir>packages/organic-validator/src/$1',
   },
   notify: true,
   notifyMode: 'always',

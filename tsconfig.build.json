@@ -6,7 +6,13 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "module": "commonjs",
-    "noEmit": false
+    "noEmit": false,
+    "paths": {
+      "*": ["node_modules", "packages"],
+      "@sackrin/organic-property/lib/*": ["packages/organic-property/src/*"],
+      "@sackrin/organic-validator/lib/*": ["packages/organic-validator/src/*"],
+      "@sackrin/organic-condition/lib/*": ["packages/organic-condition/src/*"]
+    }
   },
   "include": [],
   "exclude": ["**/*.test.*", "lib"]

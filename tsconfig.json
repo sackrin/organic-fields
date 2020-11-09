@@ -10,10 +10,9 @@
     "baseUrl": "./",
     "paths": {
       "*": ["node_modules", "packages"],
-      "@sackrin/organic-assert/*": ["packages/organic-assert/src/*"],
-      "@sackrin/organic-property/*": ["packages/organic-property/src/*"],
-      "@sackrin/organic-validator/*": ["packages/organic-validator/src/*"],
-      "@sackrin/organic-condition/*": ["packages/organic-condition/src/*"]
+      "@sackrin/organic-property/lib/*": ["packages/organic-property/src/*"],
+      "@sackrin/organic-validator/lib/*": ["packages/organic-validator/src/*"],
+      "@sackrin/organic-condition/lib/*": ["packages/organic-condition/src/*"]
     },
     "types": ["node", "jest"]
   },

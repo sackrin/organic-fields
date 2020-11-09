@@ -1,11 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "outDir": "./lib",
     "rootDir": "./src",
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "@sackrin/organic-property/lib/*": ["../organic-property/src/*"]
+    }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["node_modules",
+      "lib"
+  ]
 }

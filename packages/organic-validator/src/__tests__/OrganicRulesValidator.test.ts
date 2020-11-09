@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import OrganicProperty from '@sackrin/organic-property/OrganicProperty';
-import OrganicRoot from '@sackrin/organic-property/OrganicRoot';
+import OrganicProperty from '@sackrin/organic-property/lib/OrganicProperty';
+import OrganicRoot from '@sackrin/organic-property/lib/OrganicRoot';
 import OrganicRulesValidator from '../OrganicRulesValidator';
 
 describe('Organic/OrganicRulesValidator', () => {

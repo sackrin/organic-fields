@@ -5,18 +5,11 @@
     "declarationDir": "./lib",
     "rootDir": "./src",
     "paths": {
-      "@sackrin/organic-assert/*": ["../organic-assert/src/*"],
-      "@sackrin/organic-property/*": ["../organic-property/src/*"]
+      "@sackrin/organic-property/lib/*": ["../organic-property/src/*"]
     }
   },
-  "references": [
-    {
-      "path": "../organic-assert"
-    },
-    {
-      "path": "../organic-property"
-    }
-  ],
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["node_modules",
+      "lib"
+  ]
 }
