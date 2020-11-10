@@ -136,14 +136,6 @@ describe('Organic/OrganicProperty', () => {
       expect(exampleProperty.conditions.length).to.equal(1);
     });
 
-    it('can set multiple organic property condition checks', () => {
-      const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
-      const fakeConditionOne = (property) => ({ passed: true });
-      const fakeConditionTwo = (property) => ({ passed: true });
-      exampleProperty.condition(fakeConditionOne, fakeConditionTwo);
-      expect(exampleProperty.conditions.length).to.equal(2);
-    });
-
     it('can determine an organic property as passed after passing a single condition check', () => {
       const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
       const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();

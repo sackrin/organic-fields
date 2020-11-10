@@ -6,14 +6,15 @@ import OrganicLink, { OrganicLinkOptions } from './Types/OrganicLink';
 import doResolveFieldByPath from './Helpers/doResolveFieldByPath';
 import OrganicValidator from './Validation/Types/OrganicValidator';
 import doOrganicValidatorCheck from './Validation/doOrganicValidatorCheck';
+import OrganicFilter from './Types/OrganicFilter';
 
 class OrganicProperty<V, A = { [k: string]: any }> {
   protected _root: OrganicRoot<any, any>;
   protected _machine: string;
   protected _value?: V;
   protected _attributes?: A;
-  protected _conditions?: OrganicCondition[];
-  protected _validators?: OrganicValidator[];
+  protected _conditions?: Array<{ condition: OrganicCondition; filter: void | OrganicFilter }>;
+  protected _validators?: Array<{ validator: OrganicValidator; filter: void | OrganicFilter }>;
   protected _hydrated: OrganicHydrated;
   protected _parent: OrganicProperty<any>;
   protected _links: OrganicLink[];
@@ -38,11 +39,11 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     return this._attributes;
   }
 
-  get conditions(): OrganicCondition[] {
+  get conditions(): Array<{ condition: OrganicCondition; filter: void | OrganicFilter }> {
     return this._conditions;
   }
 
-  get validators(): OrganicValidator[] {
+  get validators(): Array<{ validator: OrganicValidator; filter: void | OrganicFilter }> {
     return this._validators;
   }
 
@@ -136,10 +137,10 @@ class OrganicProperty<V, A = { [k: string]: any }> {
   // Conditional checks will result in a visible true or false result
   // A condition will be added for each time condition is called (they stack)
   // Fields which fail conditional checks can be used to control frontend UI or strip out values for API requests
-  public condition(...checks: OrganicCondition[]): this;
-  public condition(...checks) {
+  public condition(condition: OrganicCondition, filter?: void | OrganicFilter): this;
+  public condition(condition, filter) {
     // Merge the conditions into the list of conditions
-    this._conditions = [...this._conditions, ...checks];
+    this._conditions = [...this._conditions, { condition, filter }];
     // Return the instance for chaining
     return this;
   }
@@ -147,10 +148,10 @@ class OrganicProperty<V, A = { [k: string]: any }> {
   // Validation checks will result in a validation true or false result
   // A validator will be added for each time validator is called (they stack)
   // Fields which fail validator checks can be used to determine the validity of a field
-  public validator(...validators: OrganicValidator[]): this;
-  public validator(...validators) {
+  public validator(validator: OrganicValidator, filter?: void | OrganicFilter): this;
+  public validator(validator, filter) {
     // Merge the validator into the list of validators
-    this._validators = [...this._validators, ...validators];
+    this._validators = [...this._validators, { validator, filter }];
     // Return the instance for chaining
     return this;
   }

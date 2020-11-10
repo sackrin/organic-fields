@@ -8,7 +8,9 @@ describe('Organic/Helpers/doOrganicValidatorCheck', () => {
     const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
     const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
     const fakeValidator = () => ({ passed: true });
-    const result = doOrganicValidatorCheck(exampleRoot, exampleProperty, [fakeValidator]);
+    const result = doOrganicValidatorCheck(exampleRoot, exampleProperty, [
+      { validator: fakeValidator, filter: undefined },
+    ]);
     expect(result.passed).to.equal(true);
   });
 
@@ -16,7 +18,9 @@ describe('Organic/Helpers/doOrganicValidatorCheck', () => {
     const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
     const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
     const fakeValidator = () => ({ passed: false });
-    const result = doOrganicValidatorCheck(exampleRoot, exampleProperty, [fakeValidator]);
+    const result = doOrganicValidatorCheck(exampleRoot, exampleProperty, [
+      { validator: fakeValidator, filter: undefined },
+    ]);
     expect(result.passed).to.equal(false);
   });
 });

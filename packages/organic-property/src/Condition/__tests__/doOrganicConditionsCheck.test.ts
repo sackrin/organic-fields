@@ -8,7 +8,9 @@ describe('Organic/Helpers/doOrganicConditionsCheck', () => {
     const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
     const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
     const fakeCondition = () => ({ passed: true });
-    const result = doOrganicConditionsCheck(exampleRoot, exampleProperty, [fakeCondition]);
+    const result = doOrganicConditionsCheck(exampleRoot, exampleProperty, [
+      { condition: fakeCondition, filter: undefined },
+    ]);
     expect(result.passed).to.equal(true);
   });
 
@@ -16,7 +18,9 @@ describe('Organic/Helpers/doOrganicConditionsCheck', () => {
     const exampleProperty = new OrganicProperty<void | string>('exampleProperty');
     const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
     const fakeCondition = () => ({ passed: false });
-    const result = doOrganicConditionsCheck(exampleRoot, exampleProperty, [fakeCondition]);
+    const result = doOrganicConditionsCheck(exampleRoot, exampleProperty, [
+      { condition: fakeCondition, filter: undefined },
+    ]);
     expect(result.passed).to.equal(false);
   });
 });
