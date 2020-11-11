@@ -8,10 +8,15 @@
     "declaration": true,
     "rootDir": "./",
     "baseUrl": "./",
+    "types": ["node", "jest"],
     "paths": {
+      "@sackrin/organic-core/*": ["packages/organic-core/src/*"],
+      "@sackrin/organic-root/*": ["packages/organic-root/src/*"],
+      "@sackrin/organic-property/*": ["packages/organic-property/src/*"],
+      "@sackrin/organic-container/*": ["packages/organic-container/src/*"],
+      "@sackrin/organic-children/*": ["packages/organic-children/src/*"],
       "*": ["node_modules", "packages"]
-    },
-    "types": ["node", "jest"]
+    }
   },
   "include": ["packages", "jest-dom/extend-expect"],
   "exclude": ["node_modules", "lib"]

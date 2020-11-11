@@ -1,0 +1,31 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "noEmit": true,
+    "paths": {
+      "@sackrin/organic-core/*": ["../organic-core/src/*"],
+      "@sackrin/organic-property/*": ["../organic-property/src/*"],
+      "@sackrin/organic-children/*": ["../organic-children/src/*"],
+      "@sackrin/organic-root/*": ["../organic-root/src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "lib"],
+  "references": [
+    {
+      "path": "../organic-core"
+    },
+    {
+      "path": "../organic-property"
+    },
+    {
+      "path": "../organic-children"
+    },
+    {
+      "path": "../organic-root"
+    }
+  ]
+}
