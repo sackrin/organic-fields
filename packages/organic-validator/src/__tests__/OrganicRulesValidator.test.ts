@@ -40,4 +40,25 @@ describe('Organic/OrganicRulesValidator', () => {
     expect(result.passed).to.equal(false);
     expect(result.messages.error).to.deep.equal(['value is required']);
   });
+
+  it('can return a passing result using multiple validation rules', () => {
+    const exampleProperty = new OrganicProperty<void | string>('exampleProperty').value('Test');
+    const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
+    const result = OrganicRulesValidator({
+      required: 'value is required',
+      'size:4': 'You need to enter 4 characters',
+    })(exampleRoot, exampleProperty, { passed: true }, { passed: false });
+    expect(result.passed).to.equal(true);
+  });
+
+  it('can return a failing result using multiple validation rules', () => {
+    const exampleProperty = new OrganicProperty<void | string>('exampleProperty').value('Hi');
+    const exampleRoot = new OrganicRoot<{ exampleProperty: void | string }, {}>();
+    const result = OrganicRulesValidator({
+      required: 'value is required',
+      'size:4': 'You need to enter 4 characters',
+    })(exampleRoot, exampleProperty, { passed: true }, { passed: false });
+    expect(result.passed).to.equal(false);
+    expect(result.messages.error).to.deep.equal(['You need to enter 4 characters']);
+  });
 });

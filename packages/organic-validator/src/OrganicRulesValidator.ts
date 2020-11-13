@@ -14,12 +14,10 @@ const OrganicRulesValidator: OrganicRulesValidatorCallback = (rules) => (
   // Retrieve the current property value
   const value = property.value();
   // Construct the validator rules
-  const combined = Object.keys(rules)
-    .map((rule) => rule)
-    .join('|');
+  const combined = Object.keys(rules).map((rule) => rule);
   // Construct the list of messages
   const _messages = Object.entries(rules).reduce(
-    (curr, [rule, message]) => (message ? { ...curr, [rule]: message } : curr),
+    (curr, [rule, message]) => (message ? { ...curr, [rule.split(':')[0]]: message } : curr),
     {},
   );
   // Construct the validator input object
