@@ -116,9 +116,7 @@ describe('Organic/OrganicProperty', () => {
         .child(new OrganicProperty<string>('uuid'))
         .child(
           new OrganicContainer<ExampleTree>('personal')
-            .child(
-              new OrganicProperty<void | string>('firstName').link('surname', 'personal/surname', { absolute: true }),
-            )
+            .child(new OrganicProperty<void | string>('firstName').link('surname', 'personal/surname', { absolute: true }))
             .child(new OrganicProperty<void | string>('surname')),
         );
       exampleTree.peripherals({}).hydrate();

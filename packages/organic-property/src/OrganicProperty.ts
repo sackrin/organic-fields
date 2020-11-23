@@ -8,11 +8,13 @@ import OrganicValidator from './Validation/Types/OrganicValidator';
 import doOrganicValidatorCheck from './Validation/doOrganicValidatorCheck';
 import OrganicFilter from './Types/OrganicFilter';
 
-class OrganicProperty<V, A = { [k: string]: any }> {
+class OrganicProperty<V extends any> {
   protected _root: OrganicRoot<any, any>;
   protected _machine: string;
   protected _value?: V;
-  protected _attributes?: A;
+  protected _attributes: Array<{ attribute: string; value: string; filter: void | OrganicFilter }> = [];
+  protected _tags: string[] = [];
+  protected _about: Array<{ text: string; filter: void | OrganicFilter }> = [];
   protected _conditions?: Array<{ condition: OrganicCondition; filter: void | OrganicFilter }>;
   protected _validators?: Array<{ validator: OrganicValidator; filter: void | OrganicFilter }>;
   protected _hydrated: OrganicHydrated;
@@ -21,7 +23,7 @@ class OrganicProperty<V, A = { [k: string]: any }> {
 
   constructor(machine: string) {
     this._machine = machine;
-    this._attributes = {} as A;
+    this._attributes = [];
     this._conditions = [];
     this._validators = [];
     this._links = [];
@@ -35,8 +37,12 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     return this._machine;
   }
 
-  get attributes(): A {
+  get attributes(): Array<{ attribute: string; value: string; filter: void | OrganicFilter }> {
     return this._attributes;
+  }
+
+  get tags(): string[] {
+    return this._tags;
   }
 
   get conditions(): Array<{ condition: OrganicCondition; filter: void | OrganicFilter }> {
@@ -109,13 +115,42 @@ class OrganicProperty<V, A = { [k: string]: any }> {
     }
   }
 
+  // About properties
+  // Useful to provide documentation about a field
+  public about(): string[];
+  public about(text, filter?: OrganicFilter): this;
+  public about(...args): this | string[] {
+    // If arguments were provided we are trying to set some about documentation
+    if (args.length > 0) {
+      // Push the about details into the about array
+      this._about.push({ text: args[0], filter: args[1] });
+      // Return for chaining
+      return this;
+    } else {
+      // Loop through each of the about entries
+      // Filter out any that fail a filter check
+      // Loop through and provide the resulting mapped text
+      return this._about
+        .filter((about) => (about.filter ? about.filter(this._root, this) : true))
+        .map((about) => about.text);
+    }
+  }
+
+  public tag(tag: string): this;
+  public tag(tag) {
+    // Push the tag into the property tags
+    this._tags.push(tag);
+    // Return for chaining
+    return this;
+  }
+
   // Setting and getting attributes oOrganicRootf a field
   // Attributes are simple key/value meta data to add non field value data
   // To populate field.attribute('key', 'value);
   // To read field.attribute('key');
   public attribute<I>(name): I;
-  public attribute<I>(name, value: I): this;
-  public attribute<I>(...args: [string, I] | [string]) {
+  public attribute<I>(name, value: I, filter?: OrganicFilter): this;
+  public attribute<I>(...args: [string, I] | [string, I, OrganicFilter] | [string]) {
     // Deconstruct the possible attribute key and value from the args
     const [key, value] = args;
     // Do a quick sanity check
