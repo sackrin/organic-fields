@@ -7,6 +7,8 @@ import doResolveFieldByPath from './Helpers/doResolveFieldByPath';
 import OrganicValidator from './Validation/Types/OrganicValidator';
 import doOrganicValidatorCheck from './Validation/doOrganicValidatorCheck';
 import OrganicFilter from './Types/OrganicFilter';
+import doOrganicAboutHydration from '@sackrin/organic-property/lib/About/doOrganicAboutHydration';
+import doOrganicAttributesHydration from '@sackrin/organic-property/lib/Attributes/doOrganicAttributesHydration';
 
 class OrganicProperty<V extends any> {
   protected _root: OrganicRoot<any, any>;
@@ -28,6 +30,9 @@ class OrganicProperty<V extends any> {
     this._validators = [];
     this._links = [];
     this._hydrated = {
+      links: undefined,
+      about: undefined,
+      attributes: undefined,
       conditions: undefined,
       validation: undefined,
     };
@@ -231,8 +236,12 @@ class OrganicProperty<V extends any> {
     // We do this to prevent unnecessary hydration and updates
     // Update the current root
     this.root(root);
-    // Resolve the property links
-    this.resolve();
+    // Calculate the hydrated field links
+    // this.hydrated.links = doOrganicLinksHydration(root, this, this._links);
+    // Calculate and generate the hydrated about values
+    this.hydrated.about = doOrganicAboutHydration(root, this, this._about);
+    // Calculate and generate the hydrated field attributes
+    this.hydrated.attributes = doOrganicAttributesHydration(root, this, this._attributes);
     // @TODO Perform a condition check
     this.hydrated.conditions = doOrganicConditionsCheck(root, this, this.conditions);
     // @TODO Perform a validation check
